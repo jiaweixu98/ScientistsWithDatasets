@@ -1,3 +1,4 @@
+# this is only for generate the plotly graph.
 # 这个代码中有大量细节的参数，基本可用于之后的plotly 配置到gitHub pages上。
 import dash
 import dash_core_components as dcc
@@ -14,8 +15,8 @@ import io
 buffer = io.StringIO()
 
 # 读取数据
-dataset = pd.read_csv('data/dataset.csv', index_col=0)
-author = pd.read_csv('data/author.csv', index_col=0)
+dataset = pd.read_csv('../../githubdata/ScientistsWithDatasets-1data/dataset.csv', index_col=0)
+author = pd.read_csv('../../githubdata/ScientistsWithDatasets-1data/author.csv', index_col=0)
 B2AIauthor = author.loc[author['isB2AI'] == 1]
 
 GreatGPT = ['Bioentities: Cancer Signaling Molecules<br>Keywords: Therapeutic Mechanisms', 'Bioentities: Health & Disease Risk Factors<br>Keywords: Epidemiology & Research Methods',

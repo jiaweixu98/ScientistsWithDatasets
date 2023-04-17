@@ -1,6 +1,7 @@
 # ScientistsWithDatasets
+
 An interactive knowledge/scientists/datasets graph in the area of breast cancer.
 
-ScientistsWithDatasets: https://jiaweixu98.github.io/ScientistsWithDatasets/
+The website ScientistsWithDatasets: <https://jiaweixu98.github.io/ScientistsWithDatasets/>
 
-Run: python app.py
+This repo only contains the visualization part of the project. We are preparing the main code for this project.

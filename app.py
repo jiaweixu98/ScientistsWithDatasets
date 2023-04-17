@@ -1,3 +1,4 @@
+# 这个代码中有大量细节的参数，基本可用于之后的plotly 配置到gitHub pages上。
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -83,24 +84,36 @@ for i in range(5):
         # textangle=Clusteranlge[i]
 )
 
-# 设置下整体的layout
+# 设置下整体的layout，注意给legend 设置的位置; 以及配色。
+figSwD.update_scenes(camera_center=dict(x=0.5,y=0,z=0),)
 figSwD.update_layout(
+    title='Breast Cancer Area: Scientists with Datasets <br> <br> <sup>Hover over a node to see <b> details</b>.  Use the mouse wheel or the ‘+’ and ‘-’ buttons on the top right of the canvas to <b>zoom in and out </b>.</sup>',
+    xaxis_range=[-50,150],
+    plot_bgcolor='rgba(229 , 236, 264, 1)',
+    # paper_bgcolor='#fff',
     legend=dict(itemsizing='constant',title_font_family="Times New Roman",
-                              font=dict(size= 12)),
+                              font=dict(size= 12),
+                              yanchor="top",  xanchor="right",x=0.99,y=0.98,
+                              bgcolor = 'rgba(255 , 255, 255, 0.9)'),
     dragmode='pan',
     hoverlabel_align = 'left',
     hoverlabel=dict(
         font_size=10,
     ),
     yaxis_visible=False, 
+    height=800,
                      yaxis_showticklabels=False, 
                      xaxis_visible=False, 
                      xaxis_showticklabels=False,
-width=1200, height=700,
+                     
+    yaxis={
+                        'scaleanchor': 'x',
+                        'scaleratio': 1
+                    },
                      )
 
 # 这里把图表写了下来，可以方便的分享，保留交互功能
-figSwD.write_html(buffer, config={'scrollZoom': True})
+figSwD.write_html(buffer, config={'scrollZoom': True, 'responsive': True,})
 html_bytes = buffer.getvalue().encode()
 encoded = b64encode(html_bytes).decode()
 
@@ -114,7 +127,7 @@ external_stylesheets = [
 ]
 
 # 上边是绘制好了 plotly的图表，下面用dash，生成网页
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets,)
 app.title = "ScientistWithDataset"
 app.layout = html.Div(
     children=[
@@ -135,7 +148,8 @@ app.layout = html.Div(
                         id="MDS", # ID随便起的，似乎不重要
                         figure=figSwD,# 这里很重要，是上边画的图
                         config={'scrollZoom': True,
-                                }  # 鼠标滚轴可以缩放，默认关闭，这里打开
+                                'responsive': True,
+                                },  # 鼠标滚轴可以缩放，默认关闭，这里打开
                     ),
                     className="card",
                 ),
@@ -155,4 +169,4 @@ app.layout = html.Div(
 )
 
 if __name__ == "__main__":
-    app.run_server(debug=False)
+    app.run_server(debug=True)
